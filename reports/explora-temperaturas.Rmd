@@ -3,7 +3,7 @@ title: "Temperatura JP x CG"
 output:
     html_document:
     df_print: paged
-theme: sandstone
+theme: spacelab
 ---
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
@@ -72,3 +72,14 @@ climas %>%
 
 ### A distribuição é diferente em meses específicos? 
 
+No gráfico, é possível inferir que nos meses entre Setembro e Dezembro existe uma similaridade entre a quantidade de chuva recebida por ambas as cidades. Em contra partida, entre os meses de Março e Junho, a cidade de João Pessoa recebe uma quantidade maior de chuvas com mais de 50mm.
+
+```{r}
+climas %>%
+    group_by(ano, mes, cidade) %>%
+    summarise(chuva_periodo = median(chuva)) %>%
+    ggplot(aes(x= mes,y = chuva_periodo, colour= cidade)) + 
+    geom_jitter() +
+    scale_x_continuous(breaks = seq(1,12)) +
+    labs(x = "Mês", y = "Quantidade de Chuva (em mm)",colour = "Cidade")
+```
