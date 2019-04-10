@@ -30,10 +30,10 @@ ggplot() +
 geom_jitter(data = climas, aes(x =  cidade, y = tmax, color = cidade), width = .3)
 ```
 
-### As temperaturas máximas semanais (o pico do calor) são tão diferentes quanto as médias? Mais?  
+~~ As temperaturas máximas semanais (o pico do calor) são tão diferentes quanto as médias? Mais?  
 
 
-### Quais os meses mais quentes e mais frios? 
+~~ Quais os meses mais quentes e mais frios? 
 
 
 ### Qual foi o São João  mais frio de CG que está nos nossos dados?
@@ -52,11 +52,23 @@ climas %>%
 
 ## Chuva
 
-### Quanto chove por semana em JP e CG?
+~~ Quanto chove por semana em JP e CG?~~
 
-Como é a distribuição do volume de chuvas por semana em JP e CG? A chuva varia mais ou menos que a temperatura? O formato da distribuição é igual? 
+
+~~Como é a distribuição do volume de chuvas por semana em JP e CG? A chuva varia mais ou menos que a temperatura? O formato da distribuição é igual? ~~
 
 ### No geral, onde chove mais?
+Para verificar a quantidade de chuva entre as cidades, foi feito um cálculo da mediana de todas as chuvas registradas. E a partir deste cálculo, foi possível verificar que na cidade de João Pessoa chove mais.
+
+```{r}
+climas %>%
+    group_by(cidade, ano) %>%
+    summarise(chuva_periodo = median(chuva)) %>%
+    ggplot(aes(x = chuva_periodo, y = ano, colour= cidade)) + 
+    geom_jitter()
+    labs(x = "Ano", y = "Quantidade de Chuva (em mm)",colour = "Cidade")
+```
+
 
 ### A distribuição é diferente em meses específicos? 
 
