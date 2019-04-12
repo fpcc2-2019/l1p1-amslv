@@ -62,9 +62,10 @@ climas %>%
 ```{r}
 climas %>%
     filter(ano > 1992 & chuva > 0) %>%
-        ggplot(mapping = aes(x = tmedia, y = chuva, color = cidade)) +
-        geom_jitter(width = .3) +
-        geom_smooth(aes(x = tmedia, y = chuva),method = lm)
+        ggplot(mapping = aes(y = tmedia, x = chuva, color = cidade)) +
+        geom_jitter(width = .3, alpha = .5) +
+        geom_smooth(method = lm) + 
+    scale_x_log10()
 
 ```
 
