@@ -54,6 +54,8 @@ ctjp_100 = clima08_18 %>%
 ctjp_x00 = clima08_18 %>%
     filter(chuva > 100 & cidade == "João Pessoa")
 
+semanas = climas %>% count(semana) %>% filter(n == 2) %>% pull(semana)
+climasp = climas %>% filter(semana %in% semanas)
 
 ```
 
@@ -62,8 +64,10 @@ ctjp_x00 = clima08_18 %>%
 ### Onde é mais quente?
 
 ```{r}
-ggplot() +
-geom_jitter(data = climas, aes(x =  cidade, y = tmax, color = cidade), width = .3)
+ggplot(climasp, aes(tmax, colour = cidade)) +
+  geom_density(fill = "blue", alpha = 0.1) +
+  labs(x = "Temperatura máxima",
+       y = "Densidade")
 ```
 
 ### Análise
@@ -145,4 +149,4 @@ climas %>%
 
 ### Análise
 
-Observando os gráficos acima, percebemos que em ambas as cidades ocorre com maior frequência chuvas com índice pluviométrico menor ou igual a 50 (mm) em faixas de temperatura diferentes, sendo Campina Grande com uma variação maior de temperatura em torno de 21ºC a 27ºC e João Pessoa entre 26ºC e 30ºC aproximadamente. É percepitvel também, que a cidade de João Pessoa tem um maior distribuição de chuvas do que Campina Grande, bem como, ocorre chuvas mais volumosas (índice pluviométrico &gt; 100(mm)), ou seja, o grafico de João Pessoa apresenta uma calda mais longa a esquerda. Observamos também, que a dispersão dos dados são semelhantes, com uma correlação entre as variáveis tendo a ser negativa (entre 0 e -1) e não-linear.
+Observando os gráficos acima, percebemos que em ambas as cidades ocorre com maior frequência chuvas com índice pluviométrico menor ou igual a 50 (mm) em faixas de temperatura diferentes, sendo Campina Grande com uma variação maior de temperatura em torno de 21ºC a 27ºC e João Pessoa entre 26ºC e 30ºC aproximadamente. É percepitvel também, que a cidade de João Pessoa tem um maior distribuição de chuvas do que Campina Grande, bem como, ocorre chuvas mais volumosas (índice pluviométrico &gt; 100(mm)), ou seja, o grafico de João Pessoa apresenta uma calda mais longa a esquerda. Observamos também, que a dispersão dos dados são semelhantes, com uma correlação entre as variáveis tendo a ser negativa (entre 0 e -1) e linear.
